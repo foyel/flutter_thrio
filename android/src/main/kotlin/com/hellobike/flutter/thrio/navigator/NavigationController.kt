@@ -392,19 +392,20 @@ internal object NavigationController {
     }
 
     fun clearStack(activity: Activity) {
-//        if (!hasKey(activity)) {
-//            return
-//        }
-//        val key = getKey(activity)
-//        if (!NavigatorPageRouteStack.hasRoute(key)) {
-//            return
-//        }
-//        val record = NavigatorPageRouteStack.first(key)
-//        if (activity is ThrioActivity) {
-//            activity.onPopTo(record.url, record.index, false) { }
-//            activity.onPop(record) { }
-//        }
-//        NavigatorPageRouteStack.popStack(key)
+        // TODO: 旧实现，Android singleTop 反向从底部向上destroy可能有问题
+        if (!hasKey(activity)) {
+            return
+        }
+        val key = getKey(activity)
+        if (!PageRouteStack.hasRoute(key)) {
+            return
+        }
+        val record = PageRouteStack.first(key)
+        if (activity is ThrioActivity) {
+            activity.onPopTo(record.url, record.index, false) { }
+            activity.onPop(record) { }
+        }
+        PageRouteStack.popStack(key)
     }
 
 
